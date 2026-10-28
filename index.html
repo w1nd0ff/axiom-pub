@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Axiom Pub на Бауманской</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500;700&family=Caveat:wght@600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: industrial loft — charcoal steel, red brick, oak tabletops, Edison bulbs; the menu is the bar's chalkboard with tabs; courtyard ping-pong band. Deliberately single dark look. */
+:root{
+  --bg:#15120F;
+  --panel:#1E1A16;
+  --fg:#EFE8DC;
+  --muted:#A99D8D;
+  --line:#352D25;
+  --brick:#8F3C27;
+  --oak:#B27B45;
+  --bulb:#F2AA44;
+  --chalk:#232826;
+  --display:"Yanone Kaffeesatz", "Arial Narrow", Impact, sans-serif;
+  --chalkfont:"Caveat", "Segoe Print", cursive;
+  --body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;line-height:1;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+a{color:var(--bulb)}
+:focus-visible{outline:3px solid var(--bulb);outline-offset:3px}
+
+.demo{background:#000;color:var(--muted);font-size:13px}
+.demo .wrap{padding-block:7px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.demo b{color:var(--bulb)}
+
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:16px}
+.mark{font-family:var(--display);font-size:34px;letter-spacing:.14em;line-height:1}
+.mark small{display:block;font-family:var(--body);font-size:11px;letter-spacing:.3em;color:var(--muted);margin-top:4px}
+.top nav{display:flex;gap:18px;flex-wrap:wrap}
+.top nav a{color:var(--fg);text-decoration:none;font-weight:500;font-size:15px}
+
+/* hero with bulbs */
+.hero{position:relative;overflow:hidden;background:
+  linear-gradient(180deg,rgba(21,18,15,.2),var(--bg) 92%),
+  repeating-linear-gradient(0deg,transparent 0 26px,rgba(0,0,0,.35) 26px 28px),
+  repeating-linear-gradient(90deg,transparent 0 58px,rgba(0,0,0,.35) 58px 60px),
+  var(--brick)}
+.bulbs{position:absolute;inset:0 0 auto;height:150px;pointer-events:none}
+.bulbs svg{width:100%;height:150px;display:block}
+.hero .wrap{position:relative;padding-block:150px 56px;display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:end}
+.kick{font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--bulb)}
+.hero h1{font-size:clamp(56px,10vw,120px);margin-top:10px}
+.hero p{font-size:19px;max-width:30em;margin:14px 0 0;color:#E2D7C6}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{font:inherit;font-weight:600;text-decoration:none;padding:12px 20px;border:2px solid var(--bulb);color:var(--bulb);background:none;cursor:pointer;border-radius:4px}
+.btn.solid{background:var(--bulb);color:#15120F}
+.stats{display:grid;gap:12px;justify-items:start}
+.stat{background:rgba(21,18,15,.75);border:1px solid var(--line);padding:12px 16px;border-radius:4px;display:flex;gap:12px;align-items:baseline}
+.stat b{font-family:var(--display);font-size:36px;color:var(--bulb);line-height:1;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:14px}
+
+section{padding-block:60px}
+section + section{border-top:1px solid var(--line)}
+section h2{font-size:clamp(40px,6vw,64px)}
+.sub{color:var(--muted);max-width:40em;margin:8px 0 0}
+
+/* chalkboard */
+.board{margin-top:28px;background:var(--chalk);border:14px solid var(--oak);border-radius:6px;box-shadow:inset 0 0 60px rgba(0,0,0,.6);padding:22px clamp(14px,3vw,34px) 28px}
+.board .title{font-family:var(--chalkfont);font-size:44px;color:#F4F1E8;text-align:center;line-height:1}
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:14px 0 6px}
+.tabs button{font-family:var(--chalkfont);font-size:24px;background:none;border:0;color:#BFC4BE;padding:4px 12px;cursor:pointer;border-bottom:2px dashed transparent}
+.tabs button[aria-selected="true"]{color:#F7E7B0;border-bottom-color:#F7E7B0}
+.items{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 40px}
+.items li{display:grid;grid-template-columns:1fr auto;gap:0 14px;padding:10px 0;border-bottom:1px dashed rgba(244,241,232,.18)}
+.items .n{font-family:var(--chalkfont);font-size:27px;color:#F4F1E8;line-height:1.1;min-width:0}
+.items .p{font-family:var(--chalkfont);font-size:26px;color:#F7E7B0;white-space:nowrap}
+.items .d{grid-column:1/-1;color:#AEB4AD;font-size:14px;margin-top:2px}
+
+/* beer */
+.beer{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px;align-items:center}
+.beer .note{background:var(--panel);border:1px solid var(--line);padding:22px;border-radius:6px;display:grid;gap:10px}
+.beer .note b{font-family:var(--display);font-size:52px;color:var(--bulb);line-height:1}
+.glasses{display:flex;gap:14px;align-items:flex-end;justify-content:center}
+.glasses svg{height:150px;width:auto}
+
+/* courtyard */
+.yard{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.y{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--oak);padding:20px;border-radius:4px;display:grid;gap:8px}
+.y h3{font-size:30px;color:var(--bulb)}
+.y p{margin:0;color:var(--muted)}
+
+/* reviews */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+blockquote{margin:0;padding:20px;background:var(--panel);border-left:4px solid var(--brick);border-radius:0 6px 6px 0}
+blockquote p{margin:0;font-size:19px;font-weight:500;line-height:1.35}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:14px;color:var(--muted)}
+
+/* visit */
+.visit{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;margin-top:26px}
+dl{margin:0;display:grid;gap:12px}
+.row{display:grid;grid-template-columns:110px 1fr;gap:12px}
+.row dt{color:var(--muted)}
+.row dd{margin:0;font-weight:500;min-width:0}
+.contact{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px;display:grid;gap:12px}
+.contact h3{font-size:32px}
+.copy{font:inherit;font-size:13px;cursor:pointer;background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:2px 10px;margin-left:8px}
+footer .wrap{padding-block:26px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+
+@media (max-width:820px){.quotes,.yard{grid-template-columns:1fr}.items{grid-template-columns:1fr}}
+@media (max-width:700px){
+  .hero .wrap,.beer,.visit{grid-template-columns:1fr}
+  .hero .wrap{padding-block:120px 44px}
+  .row{grid-template-columns:96px 1fr}
+  .top nav{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .glow{animation:flick 4s ease-in-out infinite}
+  .glow:nth-of-type(3n){animation-delay:-1.3s}.glow:nth-of-type(3n+1){animation-delay:-2.6s}
+  @keyframes flick{0%,100%{opacity:.85}45%{opacity:1}50%{opacity:.7}55%{opacity:1}}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="demo"><div class="wrap"><span>Демо-версия сайта. Меню и цены по данным на 4 сентября.</span><b>18+</b></div></div>
+
+<header class="top"><div class="wrap">
+  <div class="mark">AXIOM<small>PUB · КУХНЯ · ДВОРИК</small></div>
+  <nav aria-label="Разделы"><a href="#menu">Меню</a><a href="#beer">Пиво</a><a href="#yard">Дворик</a><a href="#visit">Как найти</a></nav>
+</div></header>
+
+<div class="hero">
+  <div class="bulbs" aria-hidden="true">
+    <svg viewBox="0 0 1000 150" preserveAspectRatio="none">
+      <g stroke="#0B0907" stroke-width="2">
+        <line x1="80" y1="0" x2="80" y2="70"/><line x1="230" y1="0" x2="230" y2="100"/><line x1="380" y1="0" x2="380" y2="60"/>
+        <line x1="530" y1="0" x2="530" y2="92"/><line x1="680" y1="0" x2="680" y2="66"/><line x1="830" y1="0" x2="830" y2="104"/><line x1="950" y1="0" x2="950" y2="74"/>
+      </g>
+      <g fill="#F2AA44">
+        <ellipse class="glow" cx="80" cy="82" rx="9" ry="13"/><ellipse class="glow" cx="230" cy="112" rx="9" ry="13"/><ellipse class="glow" cx="380" cy="72" rx="9" ry="13"/>
+        <ellipse class="glow" cx="530" cy="104" rx="9" ry="13"/><ellipse class="glow" cx="680" cy="78" rx="9" ry="13"/><ellipse class="glow" cx="830" cy="116" rx="9" ry="13"/><ellipse class="glow" cx="950" cy="86" rx="9" ry="13"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div>
+      <div class="kick">Бауманская · Спартаковская площадь</div>
+      <h1>Паб с кухней и дворик с пинг-понгом</h1>
+      <p>Кирпич, дерево и бочки вместо столов. Бургеры и брискет из хоспера, фламекеш, мак'н'чиз и большой выбор пива на кранах и в холодильнике.</p>
+      <div class="cta">
+        <a class="btn solid" href="tel:+79020759026">Забронировать стол</a>
+        <a class="btn" href="#menu">Меню</a>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>4,8</b><span>1538 оценок на Яндекс Картах</span></div>
+      <div class="stat"><b>до 00:00</b><span>каждый день</span></div>
+      <div class="stat"><b>от 300 ₽</b><span>бокал пива</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="menu"><div class="wrap">
+  <h2>Кухня</h2>
+  <p class="sub">Всё, что готовим на углях в хоспере, и закуски на компанию.</p>
+  <div class="board">
+    <div class="title">Меню Axiom</div>
+    <div class="tabs" role="tablist" aria-label="Разделы меню" id="tabs"></div>
+    <ul class="items" id="items"></ul>
+  </div>
+</div></section>
+
+<section id="beer"><div class="wrap">
+  <h2>Пиво</h2>
+  <div class="beer">
+    <div class="note">
+      <b>Краны + холодильник</b>
+      <p style="margin:0">Свежее на кранах и банки с бутылками в холодильнике Cans &amp; Bottles. Бармены подберут сорт под ваш вкус и под блюдо.</p>
+      <p style="margin:0;color:var(--muted)">Есть вино, настойки, безалкогольный сидр и лимонады. Бокал пива 300–450 ₽.</p>
+    </div>
+    <div class="glasses" aria-hidden="true">
+      <svg viewBox="0 0 60 120"><path d="M8 20 L52 20 L46 116 L14 116 Z" fill="#E7A43A" stroke="#EFE8DC" stroke-width="2"/><path d="M8 20 Q14 6 30 12 Q46 4 52 20 Z" fill="#F7F1E4"/></svg>
+      <svg viewBox="0 0 60 140"><path d="M10 26 L50 26 L46 136 L14 136 Z" fill="#3A1F14" stroke="#EFE8DC" stroke-width="2"/><path d="M10 26 Q16 10 30 16 Q44 8 50 26 Z" fill="#E9D8BE"/></svg>
+      <svg viewBox="0 0 60 120"><path d="M8 20 L52 20 L46 116 L14 116 Z" fill="#C9772A" stroke="#EFE8DC" stroke-width="2"/><path d="M8 20 Q14 6 30 12 Q46 4 52 20 Z" fill="#F7F1E4"/></svg>
+    </div>
+  </div>
+</div></section>
+
+<section id="yard"><div class="wrap">
+  <h2>Дворик и игры</h2>
+  <p class="sub">Из бара выходишь в уютный двор, где не слышно Третьего кольца.</p>
+  <div class="yard">
+    <div class="y"><h3>Пинг-понг</h3><p>Столы для настольного тенниса прямо во дворике.</p></div>
+    <div class="y"><h3>Кикер</h3><p>Настольный футбол внутри, для компании и на интерес.</p></div>
+    <div class="y"><h3>Трансляции</h3><p>Смотрим футбол и главные матчи на экранах.</p></div>
+  </div>
+</div></section>
+
+<section id="reviews"><div class="wrap">
+  <h2>Гости о нас</h2>
+  <div class="quotes">
+    <blockquote><p>«Безумно атмосферное место с прекрасной командой ребят»</p><cite>Милена, Яндекс Карты</cite></blockquote>
+    <blockquote><p>«Интерьер ваще супер, очень приятно сидеть внутри»</p><cite>отзыв на Яндекс Картах</cite></blockquote>
+    <blockquote><p>«Ассорти колбасок и крылья зашли на ура»</p><cite>Уитя, Яндекс Карты</cite></blockquote>
+  </div>
+</div></section>
+
+<section id="visit"><div class="wrap">
+  <h2>Как найти</h2>
+  <div class="visit">
+    <dl>
+      <div class="row"><dt>Адрес</dt><dd>Москва, Спартаковская площадь, 16/15 стр. 2, во дворе</dd></div>
+      <div class="row"><dt>Метро</dt><dd>Бауманская, около 7 минут пешком</dd></div>
+      <div class="row"><dt>Часы</dt><dd>Ежедневно до 00:00</dd></div>
+      <div class="row"><dt>Телефон</dt><dd>+7 (902) 075-90-26<button class="copy" id="copyPhone" type="button">Скопировать</button></dd></div>
+      <div class="row"><dt>Удобства</dt><dd>Wi-Fi, можно с собакой, доступно на коляске, подарочные сертификаты</dd></div>
+    </dl>
+    <div class="contact">
+      <h3>Бронь и новости</h3>
+      <p style="margin:0">Отмечаете день рождения или собираетесь большой компанией? Напишите нам заранее, подготовим столы и сет на компанию.</p>
+      <div class="cta" style="margin-top:0">
+        <a class="btn solid" href="tel:+79020759026">Позвонить</a>
+        <a class="btn" href="https://t.me/axiompub_msk" target="_blank" rel="noopener">Telegram</a>
+        <a class="btn" href="https://vk.ru/club211442923" target="_blank" rel="noopener">ВКонтакте</a>
+        <a class="btn" href="https://yandex.ru/maps/org/aksiom_pab/165667210412/" target="_blank" rel="noopener">Маршрут</a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>Axiom Pub · Спартаковская площадь, 16/15 с2</span><span>Чрезмерное употребление алкоголя вредит вашему здоровью · 18+</span></div></footer>
+
+<script>
+var MENU={
+ "Хоспер":[["Патти Мелт",750,"Две котлеты, двойной чеддер, два вида лука, трюфельное масло"],["Брискет",1100,"Говяжья грудинка из хоспера, коул-слоу, BBQ"],["Рёбра в домашнем BBQ",820,"Маринад на имперском портере"],["Бургер с беконом и блю чиз",680,"Мраморная говядина, бекон, ягодный конфитюр"],["Стейк Денвер",1200,"Морская соль и розовый перец"],["Хот-дог датский",480,"Говяжья сосиска, огурчики, лук фри"]],
+ "Закуски":[["Куриные крылья",580,"BBQ, супер-чили или медовый терияки"],["Тартар из говядины",740,"Каперсы, трюфельное масло, бриошь"],["Фиш & чипс",740,"Судак в панировке, тар-тар"],["Кесадилья с курицей",640,"Моцарелла, кукуруза, чипотле"],["Эмпанадас",550,"Венесуэльские пирожки с говядиной"],["Сырные трубочки",580,"С халапеньо и брусничным соусом"]],
+ "Фламекеш":[["С брискетом",720,"Брискет из хоспера, домашний васаби"],["С креветками",680,"Цукини и черри"],["С лисичками",620,"Сметанно-яичный соус, моцарелла"],["С беконом",640,"Красный лук и зелень"],["Четыре сыра",650,"Моцарелла, чеддер, с плесенью, пармезан"]],
+ "Мак'н'чиз":[["Мак'н'чиз",480,"Фирменные макароны в сырном соусе"],["С беконом",550,"Карамелизованный лук, сырная шапка"],["С курицей",520,""],["С креветками",680,"Королевские креветки и черри"]],
+ "На компанию":[["Пивной сет",1750,"Крылья, стрипсы, кальмары, дольки, сырные трубочки"],["Ассорти колбасок",1550,"Квашеная капуста, горчица, хрен"],["Начос",650,"С гуакамоле или чили кон карне"],["Шоколадный фондан",420,"С мороженым и конфитюром"],["Бельгийская вафля",420,""]]
+};
+var tabs=document.getElementById('tabs'),items=document.getElementById('items');
+Object.keys(MENU).forEach(function(c,i){
+  var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.id='t'+i;b.textContent=c;
+  b.setAttribute('aria-selected',i===0?'true':'false');
+  b.addEventListener('click',function(){show(c,b)});tabs.appendChild(b);
+});
+function show(c,btn){
+  tabs.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected','false')});
+  btn.setAttribute('aria-selected','true');items.innerHTML='';
+  MENU[c].forEach(function(d){
+    var li=document.createElement('li');
+    var n=document.createElement('span');n.className='n';n.textContent=d[0];
+    var p=document.createElement('span');p.className='p';p.textContent=d[1]+' ₽';
+    li.appendChild(n);li.appendChild(p);
+    if(d[2]){var s=document.createElement('span');s.className='d';s.textContent=d[2];li.appendChild(s)}
+    items.appendChild(li);
+  });
+}
+show('Хоспер',document.getElementById('t0'));
+document.getElementById('copyPhone').addEventListener('click',function(e){
+  var b=e.currentTarget;
+  try{navigator.clipboard.writeText('+79020759026').then(function(){b.textContent='Скопировано'},function(){b.textContent='+79020759026'})}catch(err){b.textContent='+79020759026'}
+});
+</script>
+
+</body>
+</html>
